@@ -55,7 +55,7 @@ Imagenet::Imagenet(int dimension, ActivationFunction fn, int nInputFeatures,
 	addLeNetLayerPOFMP(224, 3, 1, 3, 1.5, fn);
 	addLeNetLayerPOFMP(256, 3, 1, 3, 1.5, fn);
 	addLeNetLayerPOFMP(288, 3, 1, 3, 1.5, fn);
-//TODO:  addLeNetLayerPOFMP(320,3,1,3,1.5,fn);
+	//TODO:  addLeNetLayerPOFMP(320,3,1,3,1.5,fn);
 	addLeNetLayerPOFMP(352, 3, 1, 3, 1.6, fn, 32.0 / 352);
 	addLeNetLayerPOFMP(384, 3, 1, 2, 1.5, fn, 32.0 / 384);
 	addLeNetLayerMP(416, 2, 1, 1, 1, fn, 64.0 / 416);
