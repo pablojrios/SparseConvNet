@@ -3,7 +3,6 @@
 #include <vector>
 #include <string>
 #include "types.h"
-#include "SpatiallySparseDataset.h"
 
 
 class SpatiallySparseDataset {

@@ -1,5 +1,7 @@
 #include "UCF101Picture.h"
 #include <string>
+#include <assert.h>
+#include <iostream>
 
 #define WINDOW 100
 

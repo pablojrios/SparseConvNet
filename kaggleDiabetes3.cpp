@@ -41,7 +41,8 @@ Imagenet::Imagenet
 (int dimension, ActivationFunction fn,
  int nInputFeatures, int nClasses, int cudaDevice, int nTop)
   : SparseConvNet(dimension,nInputFeatures, nClasses, cudaDevice, nTop) {
-  for (int i=1;i<=7;i++) {
+  //TODO: for (int i=1;i<=7;i++) {
+  for (int i=1;i<=6;i++) {
     addLeNetLayerMP(32*i,3,1,1,1,fn,0.0f);
     addLeNetLayerMP(32*i,3,1,3,2,fn,0.0f);
   }
@@ -64,15 +65,19 @@ int main() {
 
     if (epoch==0) {
       SpatiallySparseDataset trainSubset=trainSet.subset(20*batchSize);
+      std::cout << "nPictures:      " << trainSubset.pictures.size() << std::endl;
       trainSubset.type=RESCALEBATCH;
       cnn.processDataset(trainSubset,batchSize);
     } else {
       cnn.loadWeights(baseName,epoch);
     }
-    for (epoch++;epoch<=46;epoch++) {
+    //TODO:for (epoch++;epoch<=46;epoch++) {
+    for (epoch++;epoch<=4;epoch++) {
       std::cout <<"epoch: " << epoch << std::endl;
       for (int i=0;i<3;++i) {
-        SpatiallySparseDataset trainSubset=trainSet.subset(12000);
+        //TODO:SpatiallySparseDataset trainSubset=trainSet.subset(12000);
+        SpatiallySparseDataset trainSubset=trainSet.subset(70);
+        std::cout << "nPictures:      " << trainSubset.pictures.size() << std::endl;
         cnn.processDataset(trainSubset, batchSize,0.003*exp(-epoch*0.05),0.999);
         cnn.saveWeights(baseName,epoch);
       }

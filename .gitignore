@@ -1,4 +1,4 @@
-/confusionMatrix
+/confusionMatrix*
 *.o
 cifar10
 cifar100
@@ -17,3 +17,10 @@ kagglePlanktonQuick
 *.features
 cifar10indexLearning
 old/
+/Debug/
+/Release/
+kaggleDiabetes1
+kaggleDiabetes2
+kaggleDiabetes3
+kaggleDiabetes*.predictions
+**/.idea/workspace.xml

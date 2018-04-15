@@ -1,5 +1,6 @@
 #include "SparseConvNet.h"
 #include "SpatiallySparseDatasetSHREC2015.h"
+#include <iostream>
 
 int epoch=0;
 int cudaDevice=-1;

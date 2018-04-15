@@ -1,9 +1,11 @@
 #include "CVAP_RHA_Picture.h"
 #include <string>
+#include <assert.h>
+#include <iostream>
 #define WINDOW 100
 
 CVAP_RHA_Picture::CVAP_RHA_Picture(std::ifstream &file)
-  : xOffset(0), yOffset(0), tOffset(0), xVelocity(0), yVelocity(0) {
+  : xOffset(0), yOffset(0), tOffset(0), xVelocity(0), yVelocity(0), nPoints(0) {
   std::string name;
   file >> name;
   if (name.empty()) throw 1;

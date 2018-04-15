@@ -12,8 +12,23 @@
 // Define this to turn on error checking
 #define CUDA_ERROR_CHECK
 
+#define cudaCheckFreeMem( size ) __cudaCheckFreeMem( size, __FILE__, __LINE__ )
 #define cudaSafeCall( err ) __cudaSafeCall( err, __FILE__, __LINE__ )
 #define cudaCheckError() { __cudaCheckError( __FILE__, __LINE__ ); }
+
+inline void __cudaCheckFreeMem( size_t size, const char *file, const int line )
+{
+#ifdef CUDA_ERROR_CHECK
+    size_t free;
+    size_t total;
+    cudaMemGetInfo(&free, &total);
+    if ( free < size ) {
+        std::cout << "GPU is out of memory, free = " << free << ", need to allocate = " << size << ", total = " << total << "\n" << std::flush;
+        exit(-1);
+    }
+#endif
+    return;
+}
 
 inline void __cudaSafeCall( cudaError err, const char *file, const int line )
 {

@@ -14,7 +14,8 @@ SpatiallySparseDataset KDRTrainSet(std::string dirName) {
 
   std::string imageName;
   int cl;
-  std::ifstream file("/home/ben/Archive/Datasets/kaggleDiabeticRetinopathy/train_minus_val_set");
+  // std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/train_minus_val_set");
+  std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/train_set_100");
   while (file >> imageName >> cl) {
     std::string filename=dirName+imageName+std::string(".jpeg");
     if(globVector(filename).size()==1) {
@@ -34,7 +35,8 @@ SpatiallySparseDataset KDRValidationSet(std::string dirName) {
 
   std::string imageName;
   int cl;
-  std::ifstream file("/home/ben/Archive/Datasets/kaggleDiabeticRetinopathy/val_set");
+  // std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/val_set");
+  std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/val_set_20");
   while (file >> imageName >> cl) {
     std::string filename=dirName+imageName+std::string(".jpeg");
     if(globVector(filename).size()==1) {
@@ -53,7 +55,8 @@ SpatiallySparseDataset KDRTestSet(std::string dirNameTest) {
   dataset.nClasses=5;
 
   std::string imageName;
-  std::ifstream file("/home/ben/Archive/Datasets/kaggleDiabeticRetinopathy/test_set");
+  // std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/test_set");
+  std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/test_set_50");
   while (file >> imageName) {
     std::string filename=dirNameTest+imageName+std::string(".jpeg");
     if(globVector(filename).size()==1) {

@@ -33,7 +33,7 @@ void IndexLearnerLayer::preprocess
 (SpatiallySparseBatch &batch,
  SpatiallySparseBatchInterface &input,
  SpatiallySparseBatchInterface &output) {
-  if (batch.type==TRAINBATCH); {
+  if (batch.type==TRAINBATCH) {
     assert(input.nFeatures==nFeaturesIn);
     output.nFeatures=nFeaturesOut;
     output.spatialSize=input.spatialSize;

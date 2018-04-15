@@ -1,6 +1,8 @@
 #include "Off3DFormatPicture.h"
 #include <string>
 #include <fstream>
+#include <assert.h>
+
 //Draw triangle with vertices {a, a+u, a+v} on grid
 //For every entry in grid (except the null vector -1) add a +1 to features vector.
 void drawTriangleOFF(SparseGrid& grid, int inputFieldSize, std::vector<float> &features, int &nSpatialSites,
@@ -58,6 +60,7 @@ OffSurfaceModelPicture::OffSurfaceModelPicture(std::string filename, int renderS
 }
 
 OffSurfaceModelPicture::~OffSurfaceModelPicture() {}
+
 void OffSurfaceModelPicture::normalize() { //Fit centrally in the cube [-renderSize/2,renderSize/2]^3
   arma::mat pointsm = arma::min(points,0);
   arma::mat pointsM = arma::max(points,0);

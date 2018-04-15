@@ -1,5 +1,6 @@
 #include "SparseConvNet.h"
 #include "SpatiallySparseDatasetCVAP_RHA.h"
+#include <iostream>
 
 int epoch=0;
 int cudaDevice=-1;

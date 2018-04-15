@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <assert.h>
 #include "CVAP_RHA_Picture.h"
 
 SpatiallySparseDataset CVAP_RHA_TrainSet() {

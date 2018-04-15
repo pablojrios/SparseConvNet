@@ -1,6 +1,7 @@
 #include "Off3DFormatPicture.h"
 #include <string>
 #include <fstream>
+#include <assert.h>
 
 int mapToGridOFF(float coord, int inputFieldSize) {
   return std::max(0,std::min(inputFieldSize-1,(int)(coord+0.5*inputFieldSize)));

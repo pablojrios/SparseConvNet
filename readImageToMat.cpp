@@ -6,6 +6,10 @@ void readImage(std::string filename, cv::Mat& mat, int flags) {
     std::cout << "Error : Image " << filename << " cannot be loaded..." << std::endl;
     exit(EXIT_FAILURE);
   }
+//TODO: show image file names
+//  else {
+//	std::cout << "Image " << filename << " loaded..." << std::endl;
+//  }
 }
 
 void writeImage(cv::Mat& mat,int n) {
