@@ -8,6 +8,9 @@ int cudaDevice = -1; //PCI bus ID, -1 for default GPU
 int batchSize = 5;
 std::string dirName("Data/kaggleDiabeticRetinopathy/300_train/");
 std::string dirNameTest("Data/kaggleDiabeticRetinopathy/300_test/");
+std::string fileTrainLabels("Data/kaggleDiabeticRetinopathy/train_set_1000");
+std::string fileValidationLabels("Data/kaggleDiabeticRetinopathy/val_set_200");
+std::string fileTestLabels("Data/kaggleDiabeticRetinopathy/test_set_500");
 
 Picture* OpenCVPicture::distort(RNG& rng, batchType type) {
 	OpenCVPicture* pic = new OpenCVPicture(*this);
@@ -52,8 +55,8 @@ Imagenet::Imagenet(int dimension, ActivationFunction fn, int nInputFeatures,
 	addLeNetLayerPOFMP(96, 3, 1, 3, 1.8, fn);
 	addLeNetLayerPOFMP(128, 3, 1, 3, 1.8, fn);
 	addLeNetLayerPOFMP(160, 3, 1, 3, 1.8, fn);
-	//TODO: addLeNetLayerPOFMP(192, 3, 1, 3, 1.8, fn);
-	//addLeNetLayerPOFMP(224, 3, 1, 3, 1.8, fn);
+	addLeNetLayerPOFMP(192, 3, 1, 3, 1.8, fn);
+	addLeNetLayerPOFMP(224, 3, 1, 3, 1.8, fn);
 	addLeNetLayerPOFMP(256, 3, 1, 3, 1.8, fn, 32.0 / 256);
 	addLeNetLayerPOFMP(288, 3, 1, 2, 1.5, fn, 32.0 / 288);
 	addLeNetLayerMP(320, 2, 1, 1, 1, fn, 64.0 / 320);
@@ -64,9 +67,9 @@ Imagenet::Imagenet(int dimension, ActivationFunction fn, int nInputFeatures,
 int main() {
 	std::string baseName =
 			"Data/kaggleDiabeticRetinopathy/kaggleDiabeticRetinopathyCompetitionModelFiles/kaggleDiabeticRetinopathy1";
-	SpatiallySparseDataset trainSet = KDRTrainSet(dirName);
-	SpatiallySparseDataset validationSet = KDRValidationSet(dirName);
-	SpatiallySparseDataset testSet = KDRTestSet(dirNameTest);
+	SpatiallySparseDataset trainSet = KDRTrainSet(dirName, fileTrainLabels);
+	SpatiallySparseDataset validationSet = KDRValidationSet(dirName, fileValidationLabels);
+	SpatiallySparseDataset testSet = KDRTestSet(dirNameTest, fileTestLabels);
 	trainSet.summary();
 	validationSet.summary();
 	testSet.summary();
@@ -83,11 +86,11 @@ int main() {
 			cnn.loadWeights(baseName, epoch);
 		}
 		//TODO: for (epoch++; epoch <= 65; epoch++) {
-		for (epoch++; epoch <= 5; epoch++) {
+		for (epoch++; epoch <= 15; epoch++) {
 			std::cout << "epoch: " << epoch << std::endl;
 			for (int i = 0; i < 3; ++i) {
 				//TODO: SpatiallySparseDataset trainSubset = trainSet.subset(12000);
-				SpatiallySparseDataset trainSubset = trainSet.subset(70);
+				SpatiallySparseDataset trainSubset = trainSet.subset(666);
 				cnn.processDataset(trainSubset, batchSize,
 						0.003 * exp(-epoch * 0.05), 0.999);
 				cnn.saveWeights(baseName, epoch);
@@ -99,7 +102,7 @@ int main() {
 		cnn.processDatasetRepeatTest(validationSet, batchSize, 12,
 				"Data/kaggleDiabeticRetinopathy/kaggleDiabeticRetinopathyCompetitionModelFiles/kaggleDiabetes1_epoch65.validation",
 				"", "confusionMatrix1.validation");
-		SpatiallySparseDataset trainSetAsTestSet = KDRTrainSet(dirName);
+		SpatiallySparseDataset trainSetAsTestSet = KDRTrainSet(dirName, fileTrainLabels);
 		trainSetAsTestSet.type = TESTBATCH;
 		cnn.processDatasetRepeatTest(trainSetAsTestSet, batchSize, 12,
 				"Data/kaggleDiabeticRetinopathy/kaggleDiabeticRetinopathyCompetitionModelFiles/kaggleDiabetes1_epoch65.train",

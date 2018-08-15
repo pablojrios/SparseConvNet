@@ -1,5 +1,5 @@
 import pandas as pd
-base_data_folder = '/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy'
+base_data_folder = '/home/pablo/dev/SparseConvNet/Data/kaggleDiabeticRetinopathy'
 df1 = pd.read_csv(base_data_folder + '/train/trainLabels.csv')
 
 
@@ -50,18 +50,18 @@ def patient_sample(df_in, number_patients):
 
 
 # Randomly sample 100 patients (ie.: 200 eyes) for training
-df_train_sample = patient_sample(df1, 100)
-df_train_sample.to_csv(base_data_folder + '/train_set_100', header=False, index=False, sep=' ')
+df_train_sample = patient_sample(df1, 1000)
+df_train_sample.to_csv(base_data_folder + '/train_set_1000', header=False, index=False, sep=' ')
 
 # You can get the rest of the rows by doing:
 df_rest = df1.loc[~df1.index.isin(df_train_sample.index)]
 # Randomly sample 20 patients (ie.: 40 eyes) for validation
-df_val_sample = patient_sample(df_rest, 20)
-df_val_sample.to_csv(base_data_folder + '/val_set_20', header=False, index=False, sep=' ')
+df_val_sample = patient_sample(df_rest, 200)
+df_val_sample.to_csv(base_data_folder + '/val_set_200', header=False, index=False, sep=' ')
 
 df2 = pd.read_csv(base_data_folder + '/test/retinopathy_solution.csv')
 # Randomly sample 50 patients (ie.: 100 eyes) for testing
-df_test_sample = patient_sample(df2, 50)
+df_test_sample = patient_sample(df2, 500)
 df_test_sample = df_test_sample[['image']]
-df_test_sample.to_csv(base_data_folder + '/test_set_50', header=False, index=False, sep=' ')
+df_test_sample.to_csv(base_data_folder + '/test_set_500', header=False, index=False, sep=' ')
 

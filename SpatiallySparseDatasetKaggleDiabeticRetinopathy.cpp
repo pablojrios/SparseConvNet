@@ -4,10 +4,10 @@
 #include<string>
 #include "utilities.h"
 
-SpatiallySparseDataset KDRTrainSet(std::string dirName) {
+SpatiallySparseDataset KDRTrainSet(std::string dirName, std::string fileLabels) {
   SpatiallySparseDataset dataset;
   dataset.name="DR train minus val";
-  std::cout << "Loading "<< dataset.name<<"\n";
+  std::cout << "Loading dataset '"<< dataset.name<<"': images from '"<<dirName<<"' and labels from '"<<fileLabels<<"'\n";
   dataset.type=TRAINBATCH;
   dataset.nFeatures=3;
   dataset.nClasses=5;
@@ -15,7 +15,8 @@ SpatiallySparseDataset KDRTrainSet(std::string dirName) {
   std::string imageName;
   int cl;
   // std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/train_minus_val_set");
-  std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/train_set_100");
+  // std::ifstream file("/home/pablo/dev/SparseConvNet/Data/kaggleDiabeticRetinopathy/train_set_100");
+  std::ifstream file(fileLabels);
   while (file >> imageName >> cl) {
     std::string filename=dirName+imageName+std::string(".jpeg");
     if(globVector(filename).size()==1) {
@@ -23,12 +24,13 @@ SpatiallySparseDataset KDRTrainSet(std::string dirName) {
       dataset.pictures.push_back(pic);
     }
   }
+  std::cout << "Number of images loaded: " << dataset.pictures.size() << '\n';
   return dataset;
 }
-SpatiallySparseDataset KDRValidationSet(std::string dirName) {
+SpatiallySparseDataset KDRValidationSet(std::string dirName, std::string fileLabels) {
   SpatiallySparseDataset dataset;
   dataset.name="DR val set";
-  std::cout << "Loading "<< dataset.name<<"\n";
+  std::cout << "Loading dataset '"<< dataset.name<<"': images from '"<<dirName<<"' and labels from '"<<fileLabels<<"'\n";
   dataset.type=TESTBATCH;
   dataset.nFeatures=3;
   dataset.nClasses=5;
@@ -36,7 +38,8 @@ SpatiallySparseDataset KDRValidationSet(std::string dirName) {
   std::string imageName;
   int cl;
   // std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/val_set");
-  std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/val_set_20");
+  // std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/val_set_20");
+  std::ifstream file(fileLabels);
   while (file >> imageName >> cl) {
     std::string filename=dirName+imageName+std::string(".jpeg");
     if(globVector(filename).size()==1) {
@@ -44,26 +47,29 @@ SpatiallySparseDataset KDRValidationSet(std::string dirName) {
       dataset.pictures.push_back(pic);
     }
   }
+  std::cout << "Number of images loaded: " << dataset.pictures.size() << '\n';
   return dataset;
 }
-SpatiallySparseDataset KDRTestSet(std::string dirNameTest) {
+SpatiallySparseDataset KDRTestSet(std::string dirName, std::string fileLabels) {
   SpatiallySparseDataset dataset;
   dataset.name="DR test set";
-  std::cout << "Loading "<< dataset.name<<"\n";
+  std::cout << "Loading dataset '"<< dataset.name<<"': images from '"<<dirName<<"' and labels from '"<<fileLabels<<"'\n";
   dataset.type=UNLABELEDBATCH;
   dataset.nFeatures=3;
   dataset.nClasses=5;
 
   std::string imageName;
   // std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/test_set");
-  std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/test_set_50");
+  // std::ifstream file("/home/pablo/dev/btgraham-SparseConvNet/Data/kaggleDiabeticRetinopathy/test_set_50");
+  std::ifstream file(fileLabels);
   while (file >> imageName) {
-    std::string filename=dirNameTest+imageName+std::string(".jpeg");
+    std::string filename=dirName+imageName+std::string(".jpeg");
     if(globVector(filename).size()==1) {
       OpenCVPicture*  pic = new OpenCVPicture(filename,-1,128,0);
       dataset.pictures.push_back(pic);
     }
   }
+  std::cout << "Number of images loaded: " << dataset.pictures.size() << '\n';
   return dataset;
 }
 

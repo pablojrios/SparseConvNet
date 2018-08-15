@@ -7,8 +7,8 @@
 #include <mutex>
 #include <chrono>
 #include <cassert>
-#define NBATCHPRODUCERTHREADS 10
-//TODO:#define NBATCHPRODUCERTHREADS 3
+#define NBATCHPRODUCERTHREADS 12
+//TODO: #define NBATCHPRODUCERTHREADS 1
 
 bool batchProducerBatchesInitialized; //intially false
 std::mutex batchLock[NBATCHPRODUCERTHREADS];
